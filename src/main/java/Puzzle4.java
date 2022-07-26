@@ -20,7 +20,7 @@ public class Puzzle4 {
 }
 class Puzzle4b {
     int ivar;
-    public  int doStuff(int factor) {
+    int doStuff(int factor) {
         if (ivar > 100) {
             return ivar * factor;
 //            return ivar + factor;
