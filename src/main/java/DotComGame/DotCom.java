@@ -3,8 +3,13 @@ package DotComGame;
 import java.util.ArrayList;
 
 public class DotCom {
+    private String name;
     private ArrayList<String> locationCells;
-    
+
+    public void setName(String string) {
+        name = string;
+    }
+
     public void setLocationCells(ArrayList<String> loc)
     {
         locationCells = loc;
@@ -25,11 +30,5 @@ public class DotCom {
             }
         }
         return result;
-    }
-
-    //TODO:  all the following code was added and should have been included in the book
-    private String name;
-    public void setName(String string) {
-        name = string;
     }
 }

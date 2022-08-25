@@ -10,6 +10,7 @@ public class GameHelper {
   private int gridSize = 49;
   private int [] grid = new int[gridSize];
   private int comCount = 0;
+  private ArrayList<String> gridAlpha = createGrid();
 
 
   public String getUserInput(String prompt) {
@@ -23,19 +24,35 @@ public class GameHelper {
      } catch (IOException e) {
        System.out.println("IOException: " + e);
      }
-     return inputLine.toLowerCase();
+      return inputLine.toLowerCase();
+  }
+
+  public boolean checkTheInput(String input){
+      return gridAlpha.contains(input.toLowerCase());
+  }
+
+  private ArrayList<String> createGrid(){
+      String temp;
+      ArrayList<String> result = new ArrayList<>();
+      for (int i = 0; i < gridLength; i++) {
+          for (int j = 1; j < gridLength + 1; j++) {
+              temp = String.valueOf(alphabet.charAt(i));
+              result.add(temp.concat(Integer.toString(j)));
+          }
+      }
+      return result;
   }
 
   
   
  public ArrayList<String> placeDotCom(int comSize) {                 // line 19
-    ArrayList<String> alphaCells = new ArrayList<String>();
+    ArrayList<String> alphaCells = new ArrayList<>();
     String [] alphacoords = new String [comSize];      // holds 'f6' type coords
-    String temp = null;                                // temporary String for concat
+    String temp;                                // temporary String for concat
     int [] coords = new int[comSize];                  // current candidate coords
     int attempts = 0;                                  // current attempts counter
     boolean success = false;                           // flag = found a good location ?
-    int location = 0;                                  // current starting location
+    int location;                                  // current starting location
     
     comCount++;                                        // nth dot com to place
     int incr = 1;                                      // set horizontal increment
@@ -55,7 +72,7 @@ public class GameHelper {
              if (location >= gridSize){                 // out of bounds - 'bottom'
                success = false;                         // failure
              }
-             if (x>0 & (location % gridLength == 0)) {  // out of bounds - right edge
+             if (location % gridLength == 0) {  // out of bounds - right edge
                success = false;                         // failure
              }
           } else {                                      // found already used location
@@ -66,15 +83,14 @@ public class GameHelper {
     }                                                   // end while
 
     int x = 0;                                          // turn good location into alpha coords
-    int row = 0;
-    int column = 0;
+    int row;
+    int column;
     // System.out.println("\n");
     while (x < comSize) {
       grid[coords[x]] = 1;                              // mark master grid pts. as 'used'
-      row = (int) (coords[x] / gridLength);             // get row value
+      row = coords[x] / gridLength;             // get row value
       column = coords[x] % gridLength;                  // get numeric column value
       temp = String.valueOf(alphabet.charAt(column));   // convert to alpha
-      
       alphaCells.add(temp.concat(Integer.toString(row)));
       x++;
 

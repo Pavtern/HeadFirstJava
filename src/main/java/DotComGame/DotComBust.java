@@ -5,7 +5,7 @@ import java.util.*;
 
 public class DotComBust {
     private GameHelper helper = new GameHelper();
-    private ArrayList<DotCom> dotComsList = new ArrayList<DotCom>();
+    private ArrayList<DotCom> dotComsList = new ArrayList<>();
     private int numOfGuesses = 0;
 
     public void setUpGame() {
@@ -39,6 +39,7 @@ public class DotComBust {
     
     private void checkUserGuess(String userGuess)
     {
+        if(helper.checkTheInput(userGuess)){
         numOfGuesses++;
         String result = "miss";
         
@@ -55,7 +56,10 @@ public class DotComBust {
                 break;
             }
         }
-        System.out.println(result);
+        System.out.println(result);}
+        else {
+            System.out.println("It is a wrong input! Write a letter from a to g plus number from 1 to 7.");
+        }
     }
     
     private void finishGame() {
